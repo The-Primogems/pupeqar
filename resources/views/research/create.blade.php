@@ -35,6 +35,8 @@
 
     @push('scripts')
         <script src="{{ asset('dist/selectize.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>   
+        <script src="{{ asset('js/views/research.js') }}"></script>
         <script>
             $(function () {
                 $('#start_date').attr('disabled', true);

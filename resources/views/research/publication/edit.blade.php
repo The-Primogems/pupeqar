@@ -12,9 +12,9 @@
             </div>
         </div>
         {{-- Denied Details --}}
-        @if ($denied != null)
+        @if ($deniedDetails = Session::get('denied'))
         <div class="alert alert-info" role="alert">
-            <i class="bi bi-exclamation-circle"></i> Remarks: {{ $denied->reason }}
+            <i class="bi bi-exclamation-circle"></i> Remarks: {{ $deniedDetails->reason }}
         </div>
         @endif
         <div class="row">

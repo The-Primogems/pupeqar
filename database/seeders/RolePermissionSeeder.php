@@ -23,10 +23,20 @@ class RolePermissionSeeder extends Seeder
         /***** Faculty role permissions *****/
         for ($f = 16; $f <= 31; $f++) {
             RolePermission::create(['role_id' => '1', 'permission_id' => $f]);
+            RolePermission::create(['role_id' => '10', 'permission_id' => $f]);
+            RolePermission::create(['role_id' => '11', 'permission_id' => $f]);
         }
         RolePermission::create(['role_id' => '1', 'permission_id' => 33]);
         RolePermission::create(['role_id' => '1', 'permission_id' => 34]);
         RolePermission::create(['role_id' => '1', 'permission_id' => 42]);
+        
+        RolePermission::create(['role_id' => '10', 'permission_id' => 33]);
+        RolePermission::create(['role_id' => '10', 'permission_id' => 34]);
+        RolePermission::create(['role_id' => '10', 'permission_id' => 42]);
+
+        RolePermission::create(['role_id' => '11', 'permission_id' => 33]);
+        RolePermission::create(['role_id' => '11', 'permission_id' => 34]);
+        RolePermission::create(['role_id' => '11', 'permission_id' => 42]);
         
         /***** Admin role permissions *****/
         for ($a = 16; $a <= 34; $a++) {

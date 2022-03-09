@@ -64,9 +64,13 @@ class UserRoleSeeder extends Seeder
         //FacultyExtensionist User ROles
         UserRole::create(['user_id' => '63', 'role_id' => '11']);
         UserRole::create(['user_id' => '64', 'role_id' => '11']);
+        UserRole::create(['user_id' => '63', 'role_id' => '1']);
+        UserRole::create(['user_id' => '64', 'role_id' => '1']);
 
         //FacultyResearchers UserRoles
         UserRole::create(['user_id' => '65', 'role_id' => '10']);
         UserRole::create(['user_id' => '66', 'role_id' => '10']);
+        UserRole::create(['user_id' => '65', 'role_id' => '1']);
+        UserRole::create(['user_id' => '66', 'role_id' => '1']);
     }
 }
