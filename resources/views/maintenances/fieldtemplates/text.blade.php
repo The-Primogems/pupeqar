@@ -28,19 +28,20 @@
                     @default
                         
                 @endswitch>
-                @if ($fieldInfo->name == 'utilization')
-                    <span role="alert">
-                        <small>Required if the classification is <em>invention</em>.</small>
+                @if ($fieldInfo->name == 'keywords')
+                    <span id="validation-keywords" role="alert" style="color: red;">
+                        <strong></strong>
+                    </span>
+                @endif
+
+                @if ($fieldInfo->name == 'funding_agency')
+                    <span id="" role="alert">
+                        <small>Required input for externally-funded.</small>
                     </span>
                 @endif
                 @if ($fieldInfo->label == 'Please specify')
                     <span id="" role="alert">
                         <small>Required if the previous selection is <em>others</em>.</small>
-                    </span>
-                @endif
-                @if ($fieldInfo->label == 'Name of Collaborators' || $fieldInfo->label == 'Authors/Compilers' || $fieldInfo->label == 'Name of Editor/Referee')
-                    <span id="" role="alert">
-                        <small>Surname, First Name M.I.</small>
                     </span>
                 @endif
 
@@ -66,30 +67,8 @@
     });
 </script>
 <script>
-    // $("#utilization").selectize({
-    //     delimiter: ",",
-    //     persist: false,
-    //     create: function (input) {
-    //         return {
-    //         value: input,
-    //         text: input,
-    //         };
-    //     },
-    // });
-
-    // $("#name_of_student").selectize({
-    //     delimiter: "/",
-    //     persist: false,
-    //     create: function (input) {
-    //         return {
-    //         value: input,
-    //         text: input,
-    //         };
-    //     },
-    // });
-
-    $("#collaborator").selectize({
-        delimiter: "/",
+    $("#utilization").selectize({
+        delimiter: ",",
         persist: false,
         create: function (input) {
             return {
@@ -98,17 +77,8 @@
             };
         },
     });
-    $("#authors_compilers").selectize({
-        delimiter: "/",
-        persist: false,
-        create: function (input) {
-            return {
-            value: input,
-            text: input,
-            };
-        },
-    });
-    $("#editor_name").selectize({
+
+    $("#name_of_student").selectize({
         delimiter: "/",
         persist: false,
         create: function (input) {

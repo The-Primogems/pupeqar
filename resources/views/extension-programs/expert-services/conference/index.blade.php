@@ -36,7 +36,7 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                        <div class="mb-3">
+                        <div class="mb-3 ml-1">
                             <div class="d-inline mr-2">
                                 <a href="{{ route('expert-service-in-conference.create') }}" class="btn btn-success"><i class="bi bi-plus"></i> Add Expert Service in Conference/Workshop/Training Course</a>
                             </div>
@@ -89,7 +89,7 @@
                                         <th>Title</th>
                                         <th>Nature</th>
                                         <th>College/Branch/Campus/Office</th>
-                                        <th>Date Added</th>
+                                        <th>Quarter</th>
                                         <th>Date Modified</th>
                                         <th>Actions</th>
                                     </tr>
@@ -101,11 +101,8 @@
                                         <td onclick="window.location.href = '{{ route('expert-service-in-conference.show', $expertServiceConference->id) }}' ">{{ $expertServiceConference->title }}</td>
                                         <td onclick="window.location.href = '{{ route('expert-service-in-conference.show', $expertServiceConference->id) }}' ">{{ $expertServiceConference->nature }}</td>
                                         <td onclick="window.location.href = '{{ route('expert-service-in-conference.show', $expertServiceConference->id) }}' ">{{ $expertServiceConference->college_name }}</td>
-                                        <td onclick="window.location.href = '{{ route('expert-service-in-conference.show', $expertServiceConference->id) }}' ">
-                                            <?php $created_at = strtotime( $expertServiceConference->created_at );
-                                                $created_at = date( 'M d, Y h:i A', $created_at ); ?>        
-                                            {{ $created_at }}
-                                        </td>
+                                        <td onclick="window.location.href = '{{ route('expert-service-in-conference.show', $expertServiceConference->id) }}' ">{{ $expertServiceConference->quarter }}</td>
+
                                         <td onclick="window.location.href = '{{ route('expert-service-in-conference.show', $expertServiceConference->id) }}' ">
                                             <?php $updated_at = strtotime( $expertServiceConference->updated_at );
                                                 $updated_at = date( 'M d, Y h:i A', $updated_at ); ?>        
@@ -183,7 +180,7 @@
 
             var quarterIndex = 0;
             $("#esconference_table th").each(function (i) {
-                if ($($(this)).html() == "Date Modified") {
+                if ($($(this)).html() == "Quarter") {
                     quarterIndex = i; return false;
 
                 }
@@ -192,32 +189,7 @@
             $.fn.dataTable.ext.search.push(
                 function (settings, data, dataIndex) {
                     var selectedItem = $('#quarterFilter').val()
-                    var quarter = data[quarterIndex].substring(0, 4);
-                    switch (quarter) {
-                        case "Jan ":
-                        case "Feb ":
-                        case "Mar ":
-                            quarter = "1";
-                            break;
-                        case "Apr ":
-                        case "May ":
-                        case "Jun ":
-                            quarter = "2";
-                            break;
-                        case "Jul ":
-                        case "Aug ":
-                        case "Sep ":
-                            quarter = "3";
-                            break;
-                        case "Oct ":
-                        case "Nov ":
-                        case "Dec ":
-                            quarter = "4";
-                            break;
-                        default:
-                        quarter = "";
-                    }
-
+                    var quarter = data[quarterIndex];
                     if (selectedItem === "" || quarter.includes(selectedItem)) {
                         return true;
                     }
@@ -227,7 +199,7 @@
 
             var yearIndex = 0;
             $("#esconference_table th").each(function (i) {
-                if ($($(this)).html() == "Date Added") {
+                if ($($(this)).html() == "Date Modified") {
                     yearIndex = i; return false;
 
                 }
@@ -282,7 +254,7 @@
      <script>
         var max = new Date().getFullYear();
         var min = 0;
-        var diff = max-2022;
+        var diff = max-2019;
         min = max-diff;
         select = document.getElementById('yearFilter');
         for (var i = max; i >= min; i--) {

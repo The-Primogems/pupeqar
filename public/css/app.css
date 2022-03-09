@@ -13221,19 +13221,19 @@ table tr .padding_left_show {
     visibility: hidden; 
 }
 
-.submenu-nav-item {
+.nav-item-extension-program {
   /* flex: 1 1 auto; */
   text-align: center;
   text-decoration: none;
   margin: 8px 25px 8px 0;
 }
 
-.submenu-nav-item a:hover {
+.nav-item-extension-program a:hover {
   text-decoration: none;
 
 }
 
-.submenu-nav-item a.active {
+.nav-item-extension-program a.active {
   font-weight: bolder;
 
 }
@@ -13421,19 +13421,3 @@ table tr .padding_left_show {
 .text-small{
   font-size: 12px;
 }
-
-
-.datepicker .table-condensed{
-  margin-left: 10px;
-}
-
-/* Selectize input (for multiple input) */
-.selectize-dropdown, .selectize-input { 
-line-height: 23px; 
-font-size: 14px;
-}
-
-/* Table */
-.table-responsive{
-overflow-x: auto;
-} 

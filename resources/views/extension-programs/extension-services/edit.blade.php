@@ -150,18 +150,46 @@
 
     @push('scripts')
         <script src="{{ asset('dist/selectize.min.js') }}"></script>
-        <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+        <script>
+            $(document).ready(function() {
+                $('.datepicker').datepicker({
+                    autoclose: true,
+                    format: 'mm/dd/yyyy',
+                    immediateUpdates: true,
+                    todayBtn: "linked",
+                    todayHighlight: true
+                });
+            });
+        </script>
+        <script>
+            $(document).ready(function(){
+                var classification = '{{ $value['classification'] }}'
+                if (classification == 119) {
+                    $('div .other_classification').show();
+                }
+                else {
+                    $('div .other_classification').hide();
+                }
+
+                var classification_of_trainees_or_beneficiaries = '{{ $value['classification_of_trainees_or_beneficiaries'] }}'
+                if (classification_of_trainees_or_beneficiaries == 130) {
+                    $('div .other_classification_of_trainees').show();
+                }
+                else {
+                    $('div .other_classification_of_trainees').hide();
+                }
+            });
+        </script>
         <script>
             var other_classification = document.getElementById("other_classification");
             $('#classification').on('input', function(){
                 var classification_name = $("#classification option:selected").text();
                 if (classification_name == "Others") {
-                    $('#other_classification').attr('required', true);
+                    $('div .other_classification').show();
                     $('#other_classification').focus();
                 }
                 else {
-                    $('#other_classification').removeAttr('required');
-                    $('#other_classification').val('');
+                    $('div .other_classification').hide();
                 }
             });
 
@@ -169,12 +197,11 @@
             $('#classification_of_trainees_or_beneficiaries').on('input', function(){
                 var classification_trainees_name = $("#classification_of_trainees_or_beneficiaries option:selected").text();
                 if (classification_trainees_name == "Others") {
-                    $('#other_classification_of_trainees').attr('required', true);
+                    $('div .other_classification_of_trainees').show();
                     $('#other_classification_of_trainees').focus();
                 }
                 else {
-                    $('other_classification_of_trainees').removeAttr('required');
-                    $('#other_classification_of_trainees').val('');
+                    $('div .other_classification_of_trainees').hide();
                 }
             });
         </script>
@@ -228,20 +255,30 @@
                 $('#to').val([year, month, day.toLocaleString(undefined, {minimumIntegerDigits: 2})].join('-'));
             });
 
+            $(function () {
+                $('.funding_agency').hide();
+                $('#funding_agency').removeClass('form-validation');
+            });
+
             $('#type_of_funding').on('change', function (){
                 var type = $(this).val();
                 if(type == 123){
-                    $('#funding_agency').attr('disabled', true);
+                    
+                    $('.funding_agency').show();
                     $('#funding_agency').val('Polytechnic University of the Philippines');
+                    $('#funding_agency').removeAttr('disabled');
+                    $('#funding_agency').attr('readonly', true);
                     $('#funding_agency').addClass('form-validation');
                 }
                 else if(type == 124){
+                    $('.funding_agency').hide();
                     $('#funding_agency').attr('disabled', true);
                     $('#funding_agency').removeClass('form-validation');
                 }
                 else if(type == 125){
                     $('#funding_agency').removeAttr('readonly');
                     $('#funding_agency').removeAttr('disabled');
+                    $('.funding_agency').show();
                     $('#funding_agency').val('');
                     $('#funding_agency').addClass('form-validation');
                 }

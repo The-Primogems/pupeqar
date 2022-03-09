@@ -32,7 +32,7 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                        <div class="mb-3">
+                        <div class="mb-3 ml-1">
                             <div class="d-inline mr-2">
                                 <a href="{{ route('viable-project.create') }}" class="btn btn-success"><i class="bi bi-plus"></i> Add Viable Demonstration Project </a>
                             </div>
@@ -66,7 +66,7 @@
                                     <tr>
                                         <th></th>
                                         <th>Name of Viable Demonstration Project</th>
-                                        <th>Date Added</th>
+                                        <th>Quarter</th>
                                         <th>Date Modified</th>
                                         <th>Actions</th>
                                     </tr>
@@ -76,11 +76,7 @@
                                     <tr class="tr-hover" role="button">
                                         <td onclick="window.location.href = '{{ route('viable-project.show', $row->id) }}' " >{{ $loop->iteration }}</td>
                                         <td onclick="window.location.href = '{{ route('viable-project.show', $row->id) }}' " >{{ $row->name }}</td>
-                                        <td onclick="window.location.href = '{{ route('viable-project.show', $row->id) }}' " >
-                                            <?php $created_at = strtotime( $row->created_at );
-                                                $created_at = date( 'M d, Y h:i A', $created_at ); ?>  
-                                            {{ $created_at }}
-                                        </td>
+                                        <td onclick="window.location.href = '{{ route('viable-project.show', $row->id) }}' " >{{ $row->quarter }}</td>
                                         <td onclick="window.location.href = '{{ route('viable-project.show', $row->id) }}' " >
                                             <?php $updated_at = strtotime( $row->updated_at );
                                                 $updated_at = date( 'M d, Y h:i A', $updated_at ); ?>  
@@ -121,7 +117,7 @@
 
              var quarterIndex = 0;
             $("#project_table th").each(function (i) {
-                if ($($(this)).html() == "Date Modified") {
+                if ($($(this)).html() == "Quarter") {
                     quarterIndex = i; return false;
 
                 }
@@ -130,31 +126,7 @@
             $.fn.dataTable.ext.search.push(
                 function (settings, data, dataIndex) {
                     var selectedItem = $('#quarterFilter').val()
-                    var quarter = data[quarterIndex].substring(0, 4);
-                    switch (quarter) {
-                        case "Jan ":
-                        case "Feb ":
-                        case "Mar ":
-                            quarter = "1";
-                            break;
-                        case "Apr ":
-                        case "May ":
-                        case "Jun ":
-                            quarter = "2";
-                            break;
-                        case "Jul ":
-                        case "Aug ":
-                        case "Sep ":
-                            quarter = "3";
-                            break;
-                        case "Oct ":
-                        case "Nov ":
-                        case "Dec ":
-                            quarter = "4";
-                            break;
-                        default:
-                        quarter = "";
-                    }
+                    var quarter = data[quarterIndex];
                     if (selectedItem === "" || quarter.includes(selectedItem)) {
                         return true;
                     }
@@ -164,7 +136,7 @@
 
             var yearIndex = 0;
             $("#project_table th").each(function (i) {
-                if ($($(this)).html() == "Date Added") {
+                if ($($(this)).html() == "Date Modified") {
                     yearIndex = i; return false;
 
                 }
@@ -192,7 +164,7 @@
             table.draw();
             var max = new Date().getFullYear();
             var min = 0;
-            var diff = max-2022;
+            var diff = max-2019;
             min = max-diff;
             select = document.getElementById('yearFilter');
             for (var i = max; i >= min; i--) {

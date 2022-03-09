@@ -144,18 +144,38 @@
     </div>
     @push('scripts')
         <script src="{{ asset('dist/selectize.min.js') }}"></script>
-        <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+        <script>
+            $(document).ready(function() {
+                $('.datepicker').datepicker({
+                    autoclose: true,
+                    format: 'mm/dd/yyyy',
+                    immediateUpdates: true,
+                    todayBtn: "linked",
+                    todayHighlight: true
+                });
+            });
+        </script>
+        <script>
+            $(document).ready(function(){
+                var nature = '{{ $value['nature']; }}'
+                if (nature == 86) {
+                    $('div .other_nature').show();
+                }
+                else {
+                    $('div .other_nature').hide();
+                }
+            });
+        </script>
         <script>
             var other_nature = document.getElementById("other_nature");
             $('#nature').on('input', function(){
                 var nature_name = $("#nature option:selected").text();
                 if (nature_name == "Others") {
-                    $('#other_nature').attr('required', true);
+                    $('div .other_nature').show();
                     $('#other_nature').focus();
                 }
                 else {
-                    $('#other_nature').removeAttr('required');
-                    $('#other_nature').val('');
+                    $('div .other_nature').hide();
                 }
             });
         </script>

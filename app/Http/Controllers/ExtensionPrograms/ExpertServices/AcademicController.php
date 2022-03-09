@@ -84,6 +84,7 @@ class AcademicController extends Controller
 
         $request->validate([
             'other_nature' => 'required_if:nature,86',
+            'to' => 'after_or_equal:from',
             'copyright_no' => 'max:100',
             'college_id' => 'required',
             'department_id' => 'required'
@@ -214,6 +215,7 @@ class AcademicController extends Controller
 
         $request->validate([
             'other_nature' => 'required_if:nature,86',
+            'to' => 'after_or_equal:from',
             'copyright_no' => 'max:100',
             'college_id' => 'required',
             'department_id' => 'required'

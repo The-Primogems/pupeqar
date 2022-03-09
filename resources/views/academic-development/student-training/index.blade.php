@@ -68,7 +68,7 @@
                                         <th>Name of Student</th>
                                         <th>Title</th>
                                         <th>Organization</th>
-                                        <th>Date Added</th>
+                                        <th>Quarter</th>
                                         <th>Date Modified</th>
                                         <th>Actions</th>
                                     </tr>
@@ -80,11 +80,8 @@
                                         <td onclick="window.location.href = '{{ route('student-training.show', $row->id) }}' " >{{ $row->name_of_student }}</td>
                                         <td onclick="window.location.href = '{{ route('student-training.show', $row->id) }}' " >{{ $row->title }}</td>
                                         <td onclick="window.location.href = '{{ route('student-training.show', $row->id) }}' " >{{ $row->organization }}</td>
-                                        <td onclick="window.location.href = '{{ route('student-training.show', $row->id) }}' " >
-                                            <?php $created_at = strtotime( $row->created_at );
-                                                $created_at = date( 'M d, Y h:i A', $created_at ); ?>  
-                                                {{ $created_at }}
-                                        </td>
+                                        <td onclick="window.location.href = '{{ route('student-training.show', $row->id) }}' " >{{ $row->quarter }}</td>
+
                                         <td onclick="window.location.href = '{{ route('student-training.show', $row->id) }}' " >
                                             <?php $updated_at = strtotime( $row->updated_at );
                                                 $updated_at = date( 'M d, Y h:i A', $updated_at ); ?>  
@@ -125,7 +122,7 @@
 
             var quarterIndex = 0;
             $("#student_training_table th").each(function (i) {
-                if ($($(this)).html() == "Date Modified") {
+                if ($($(this)).html() == "Quarter") {
                     quarterIndex = i; return false;
 
                 }
@@ -134,31 +131,7 @@
             $.fn.dataTable.ext.search.push(
                 function (settings, data, dataIndex) {
                     var selectedItem = $('#quarterFilter').val()
-                    var quarter = data[quarterIndex].substring(0, 4);
-                    switch (quarter) {
-                        case "Jan ":
-                        case "Feb ":
-                        case "Mar ":
-                            quarter = "1";
-                            break;
-                        case "Apr ":
-                        case "May ":
-                        case "Jun ":
-                            quarter = "2";
-                            break;
-                        case "Jul ":
-                        case "Aug ":
-                        case "Sep ":
-                            quarter = "3";
-                            break;
-                        case "Oct ":
-                        case "Nov ":
-                        case "Dec ":
-                            quarter = "4";
-                            break;
-                        default:
-                        quarter = "";
-                    }
+                    var quarter = data[quarterIndex];
                     if (selectedItem === "" || quarter.includes(selectedItem)) {
                         return true;
                     }
@@ -196,7 +169,7 @@
 
             var max = new Date().getFullYear();
             var min = 0;
-            var diff = max-2022;
+            var diff = max-2019;
             min = max-diff;
             select = document.getElementById('yearFilter');
             for (var i = max; i >= min; i--) {

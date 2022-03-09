@@ -37,42 +37,41 @@
 
     @push('scripts')
         <script src="{{ asset('dist/selectize.min.js') }}"></script>
-        <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
         <script>
-            $(function () {
-                $('#funding_agency').attr('disabled', true);
-                $('#funding_agency').removeClass('form-validation');
-                $('#from').attr('disabled', true);
-                $('#from').removeClass('form-validation');
-                $('#to').attr('disabled', true);
-                $('#to').removeClass('form-validation');
-                $('#status').val(105);
+            $(document).ready(function() {
+                $('.datepicker').datepicker({
+                    autoclose: true,
+                    format: 'mm/dd/yyyy',
+                    immediateUpdates: true,
+                    todayBtn: "linked",
+                    todayHighlight: true
+                });
             });
         </script>
         <script>
+            $('div .other_classification').hide();
                 var other_classification = document.getElementById("other_classification");
                 $('#classification').on('change', function(){
                     var classification_name = $("#classification option:selected").text();
                     if (classification_name == "Others") {
-                        $('#other_classification').attr('required', true);
+                        $('div .other_classification').show();
                         $('#other_classification').focus();
                     }
                     else {
-                        $('#other_classification').removeAttr('required');
-                        $('#other_classification').val('');
+                        $('div .other_classification').hide();
                     }
                 });
 
+            $('div .other_classification_of_trainees').hide();
             var other_classification_of_trainees = document.getElementById("other_classification_of_trainees");
             $('#classification_of_trainees_or_beneficiaries').on('input', function(){
                 var classification_trainees_name = $("#classification_of_trainees_or_beneficiaries option:selected").text();
                 if (classification_trainees_name == "Others") {
-                    $('#other_classification_of_trainees').attr('required', true);
+                    $('div .other_classification_of_trainees').show();
                     $('#other_classification_of_trainees').focus();
                 }
                 else {
-                    $('#other_classification_of_trainees').removeAttr('required');
-                    $('#other_classification_of_trainees').val('');
+                    $('div .other_classification_of_trainees').hide();
                 }
             });
         </script>
@@ -100,36 +99,52 @@
                 $('#to').val([year, month, day.toLocaleString(undefined, {minimumIntegerDigits: 2})].join('-'));
             });
 
+            $('#keywords').on('keyup', function(){
+                // var value = $(this).val();
+                var value = $(this).val().replace(/ /g,'');
+                var words = value.split(",");
+                words = words.filter(function(e){return e});
+                // console.log(words);
+                if(words.length < 5){
+                    $("#validation-keywords").text('The number of keywords must be five (5)');
+                }
+                else if (words.length >= 5){
+                    $("#validation-keywords").text('');
+                }
+                else if( words == null){
+                    $("#validation-keywords").text('The number of keywords must be five (5)');
+                }
+            });
+            
+            $(function () {
+                $('.funding_agency').hide();
+                $('#funding_agency').removeClass('form-validation');
+            });
+
             $('#type_of_funding').on('change', function (){
                 var type = $(this).val();
                 if(type == 123){
+                    
+                    $('.funding_agency').show();
                     $('#funding_agency').val('Polytechnic University of the Philippines');
-                    $('#funding_agency').attr('disabled', true);
+                    $('#funding_agency').removeAttr('disabled');
+                    $('#funding_agency').attr('readonly', true);
                     $('#funding_agency').addClass('form-validation');
                 }
                 else if(type == 124){
-                    $('#funding_agency').val('');
+                    $('.funding_agency').hide();
                     $('#funding_agency').attr('disabled', true);
                     $('#funding_agency').removeClass('form-validation');
                 }
                 else if(type == 125){
+                    $('#funding_agency').removeAttr('readonly');
                     $('#funding_agency').removeAttr('disabled');
+                    $('.funding_agency').show();
                     $('#funding_agency').val('');
-                    $('#funding_agency').attr('required', true);
                     $('#funding_agency').addClass('form-validation');
                 }
             });
 
-            $('#status').on('change', function (){
-                $('#status option[value="106"]').attr("disabled", true);
-                $('#status option[value="107"]').attr("disabled", true);
-                var status = $(this).val();
-                if(status == 105){
-                    $('#from').removeAttr('disabled');
-                    $('#from').addClass('form-validation');
-                }
-            });
-            
             function validateForm() {
                 var isValid = true;
                 $('.form-validation').each(function() {

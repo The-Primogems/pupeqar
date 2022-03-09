@@ -144,17 +144,54 @@
     </div>
     @push('scripts')
         <script src="{{ asset('dist/selectize.min.js') }}"></script>
-        <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+        <script>
+            $(document).ready(function() {
+                $('.datepicker').datepicker({
+                    autoclose: true,
+                    format: 'mm/dd/yyyy',
+                    immediateUpdates: true,
+                    todayBtn: "linked",
+                    todayHighlight: true
+                });
+            });
+        </script>   
+        <script>
+            $(document).ready(function(){
+                var collab_nature = '{{ $values['collab_nature']; }}'
+                if (collab_nature == 138) {
+                    $('div .other_collab_nature').show();
+                }
+                else {
+                    $('div .other_collab_nature').hide();
+                }
+
+                var partnership_type = '{{ $values['partnership_type']; }}'
+                if (partnership_type == 149) {
+                    $('div .other_partnership_type').show();
+                }
+                else {
+                    $('div .other_partnership_type').hide();
+                }
+
+                var deliverable = '{{ $values['deliverable']; }}'
+                if (deliverable == 157) {
+                    $('div .other_deliverable').show();
+                }
+                else {
+                    $('div .other_deliverable').hide();
+                }
+            });
+        </script>
         <script>
             var other_collab_nature = document.getElementById("other_collab_nature");
             $('#collab_nature').on('input', function(){
                 var collab_nature_name = $("#collab_nature option:selected").text();
                 if (collab_nature_name == "Others") {
-                    $('#other_collab_nature').attr('required', true);
+                    $('div .other_collab_nature').show();
                     $('#other_collab_nature').focus();
                 }
                 else {
-                    $('#other_collab_nature').removeAttr('required');
+                    $('div .other_collab_nature').hide();
                 }
             });
 
@@ -162,11 +199,11 @@
             $('#partnership_type').on('input', function(){
                 var partnership_type_name = $("#partnership_type option:selected").text();
                 if (partnership_type_name == "Others") {
+                    $('div .other_partnership_type').show();
                     $('#other_partnership_type').focus();
-                    $('#other_partnership_type').attr('required', true);
                 }
                 else {
-                    $('#other_partnership_type').removeAttr('required');
+                    $('div .other_partnership_type').hide();
                 }
             });
 
@@ -174,11 +211,11 @@
             $('#deliverable').on('input', function(){
                 var deliverable_name = $("#deliverable option:selected").text();
                 if (deliverable_name == "Others") {
+                    $('div .other_deliverable').show();
                     $('#other_deliverable').focus();
-                    $('#other_deliverable').attr('required', true);
                 }
                 else {
-                    $('#other_deliverable').removeAttr('required');
+                    $('div .other_deliverable').hide();
                 }
             });
         </script>

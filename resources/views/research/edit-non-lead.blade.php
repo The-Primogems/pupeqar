@@ -133,8 +133,17 @@
     </div>
     @push('scripts')
         <script src="{{ asset('dist/selectize.min.js') }}"></script>
-        <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>   
-        <script src="{{ asset('js/views/research.js') }}"></script> 
+        <script>
+            $(document).ready(function() {
+                $('.datepicker').datepicker({
+                    autoclose: true,
+                format: 'mm/dd/yyyy',
+                immediateUpdates: true,
+                todayBtn: "linked",
+                todayHighlight: true
+                });
+            });
+        </script>   
         <script>
             $('#college').on('input', function(){
                 var collegeId = $('#college').val();
@@ -151,33 +160,40 @@
         
         </script>
         <script>
+            function hide_dates() {
+                $('.start_date').hide();
+                $('.target_date').hide();
+                $('#start_date').attr('disabled', true);
+                $('#target_date').attr('disabled', true);
+            }
 
             $('#classification').on('change', function () {
-                $('#classification').attr('disabled', true); 
+                $('#classification').attr('disabled', 'disabled'); 
             });
             $('#category').on('change', function () {
-                $('#category').attr('disabled', true); 
+                $('#category').attr('disabled', 'disabled'); 
             });
             $('#agenda').on('change', function () {
-                $('#agenda').attr('disabled', true); 
+                $('#agenda').attr('disabled', 'disabled'); 
             });
             $('#nature_of_involvement').on('change', function (){
-                $('#nature_of_involvement option[value=11]').attr('disabled',true);
-                $('#nature_of_involvement option[value=224]').attr('disabled',true);
+                $('#nature_of_involvement option[value=11]').attr('disabled','disabled');
+                $('#nature_of_involvement option[value=224]').attr('disabled','disabled');
             });
             $('#research_type').on('change', function () {
-                $('#research_type').attr('disabled', true); 
+                $('#research_type').attr('disabled', 'disabled'); 
             });
             $('#funding_type').on('change', function () {
-                $('#funding_type').attr('disabled', true); 
+                $('#funding_type').attr('disabled', 'disabled'); 
             });
             $('#currency_select').on('change', function () {
-                $('#currency_select').attr('disabled', true); 
+                $('#currency_select').attr('disabled', 'disabled'); 
             });
             $('.document').remove();
 
-            $('#title').attr('disabled', true); 
-            $('#keywords').attr('disabled', true);  
+            
+            $('#title').attr('disabled', 'disabled'); 
+            $('#keywords').attr('disabled', 'disabled'); 
             
             $('#researchers').attr('disabled', true);
             
@@ -190,12 +206,12 @@
             $('#description').attr('disabled', true);
 
             if ({{$research->status}} == 26) {
-                $('#start_date').attr('disabled', true);
-                $('#target_date').attr('disabled', true);
+                hide_dates();
+                
             }
             else if ({{$research->status}} == 27) {
-                $('#start_date').removeAttr('disabled');
-                $('#target_date').removeAttr('disabled');
+                $('.start_date').show();
+                $('.target_date').show();
                 $('#status').attr('disabled', true);
             }
             else if ({{ $research->status }} > 27) {
@@ -213,6 +229,59 @@
                 document.getElementById("department").value = "{{ $values['department_id'] }}";
             });
 
+            $('#status').on('change', function(){
+                var statusId = $('#status').val();
+                if (statusId == 26) {
+                    hide_dates();
+                    $('#start_date').removeAttr('required');
+                    $('#target_date').removeAttr('required');
+                }
+                else if (statusId != 27) {
+                    $('.start_date').show();
+                    $('.target_date').show();
+                    $('#start_date').attr("disabled", true);
+                    $('#target_date').attr("disabled", true);;
+                }
+            });
+            
+            $('#keywords').on('keyup', function(){
+                var value = $(this).val();
+                if (value != null){
+                    var count = value.match(/(\w+)/g).length;
+                    if(count < 5)
+                        $("#validation-keywords").text('The number of keywords is still less than five (5)');
+                    else{
+                        $("#validation-keywords").text('');
+                    }
+                }
+                if (value == null)
+                    $("#validation-keywords").text('The number of keywords must be five (5)');
+            });
+
+        </script>
+        <script>
+             $('#start_date').on('input', function(){
+                var date = new Date($('#start_date').val());
+                if (date.getDate() <= 9) {
+                        var day = "0" + date.getDate();
+                }
+                else {
+                    var day = date.getDate();
+                }
+
+                var month = date.getMonth() + 1;
+                if (month <= 9) {
+                    month = "0" + month;
+                }
+                else {
+                    month = date.getMonth() + 1;
+                }
+                var year = date.getFullYear();
+                // alert([day, month, year].join('-'));
+                // document.getElementById("target_date").setAttribute("min", [day, month, year].join('-'));
+                document.getElementById('target_date').setAttribute('min', [year, month, day.toLocaleString(undefined, {minimumIntegerDigits: 2})].join('-'));
+                $('#target_date').val([year, month, day.toLocaleString(undefined, {minimumIntegerDigits: 2})].join('-'));
+            });
         </script>
         <script>
             var report_category_id = 1;

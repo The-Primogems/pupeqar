@@ -144,7 +144,17 @@
     </div>
     @push('scripts')
         <script src="{{ asset('dist/selectize.min.js') }}"></script>
-        <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script> 
+        <script>
+            $(document).ready(function() {
+                $('.datepicker').datepicker({
+                    autoclose: true,
+                    format: 'mm/dd/yyyy',
+                    immediateUpdates: true,
+                    todayBtn: "linked",
+                    todayHighlight: true
+                });
+            });
+        </script> 
         <script>
             $(document).ready(function(){
                 var type = '{{ $values['type']; }}'
