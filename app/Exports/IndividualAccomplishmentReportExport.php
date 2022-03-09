@@ -192,7 +192,7 @@ class IndividualAccomplishmentReportExport implements FromView, WithEvents
                         if(in_array($format->report_category_id, $extension_reports))
                             $table_contents[$format->id] = Report::where('reports.report_category_id', $format->report_category_id)
                                 ->where('reports.department_id', $department_id)
-                                ->where('reports.extension_approval', 1)
+                                ->where('reports.extensionist_approval', 1)
                                 ->whereYear('reports.updated_at', $year_generate)
                                 ->where(DB::raw('QUARTER(reports.updated_at)'), $quarter_generate)
                                 ->join('users', 'users.id', 'reports.user_id')
@@ -204,7 +204,7 @@ class IndividualAccomplishmentReportExport implements FromView, WithEvents
                 }
             }
         }
-        elseif($source_type == "admin"){
+        elseif($reportFormat == "admin"){
             if($source_generate == "department"){
                 $source_type = "department";
                 $department_id = $id;
@@ -344,7 +344,7 @@ class IndividualAccomplishmentReportExport implements FromView, WithEvents
                         if(in_array($format->report_category_id, $extension_reports))
                             $table_contents[$format->id] = Report::where('reports.report_category_id', $format->report_category_id)
                                 ->where('reports.department_id', $department_id)
-                                ->where('reports.extension_approval', 1)
+                                ->where('reports.extensionist_approval', 1)
                                 ->whereYear('reports.updated_at', $year_generate)
                                 ->where(DB::raw('QUARTER(reports.updated_at)'), $quarter_generate)
                                 ->join('users', 'users.id', 'reports.user_id')
