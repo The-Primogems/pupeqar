@@ -330,7 +330,7 @@ class GenerateController extends Controller
         $source_generate = $request->input("source_generate");
         $year_generate = $request->input('year_generate');
         $quarter_generate = $request->input('quarter_generate');
-        $cbco = $request->input('cbco');
+        $cbco = ($request->input("source_generate") == 'research' || $request->input("source_generate") == 'extension') ? Department::where('id', $id)->pluck('college_id')->first() : $request->input('cbco');
 
         $user = User::where('id', auth()->id())->first('last_name');
         $nameUser = $user->last_name;
