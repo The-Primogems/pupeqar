@@ -20,6 +20,7 @@
                             <option value="admin">Admin</option>
                         </select>
                     </div>
+                    @if ($source_type == 'my')
                     <!-- CBCO (College/Branch/Campus/Office) -->
                     <div class="form-group">
                         <label for="cbco">College/Branch/Campus/Office</label>
@@ -30,6 +31,7 @@
                             @endforeach
                         </select>
                     </div>
+                    @endif
                     <div class="form-group">
                         <label for="quarter_generate">Quarter</label>
                         <select name="quarter_generate" id="quarter_generate" class="form-control">

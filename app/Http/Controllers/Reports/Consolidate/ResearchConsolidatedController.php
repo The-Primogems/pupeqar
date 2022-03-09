@@ -30,6 +30,16 @@ class ResearchConsolidatedController extends Controller
         $sectors = [];
         $departmentsResearch = [];
         $departmentsExtension = [];
+        $currentMonth = date('m');
+        $year = "default";
+        if ($currentMonth <= 3 && $currentMonth >= 1) 
+            $quarter = 1;
+        if ($currentMonth <= 6 && $currentMonth >= 4)
+            $quarter = 2;
+        if ($currentMonth <= 9 && $currentMonth >= 7)
+            $quarter = 3;
+        if ($currentMonth <= 12 && $currentMonth >= 10) 
+            $quarter = 4;
         
         if(in_array(5, $roles)){
             $departments = Chairperson::where('chairpeople.user_id', auth()->id())->select('chairpeople.department_id', 'departments.code')
@@ -65,7 +75,7 @@ class ResearchConsolidatedController extends Controller
                           )
                 ->join('report_categories', 'reports.report_category_id', 'report_categories.id')
                 ->join('users', 'users.id', 'reports.user_id')
-                ->whereIn('reports.report_category_id', [1, 2, 3, 4, 5, 6, 7])
+                ->whereIn('reports.report_category_id', [1, 2, 3, 4, 5, 6, 7, 8])
                 ->where('reports.department_id', $id)->get();
         //get_department_and_college_name
         $college_names = [];
@@ -90,7 +100,7 @@ class ResearchConsolidatedController extends Controller
 
         return view(
                     'reports.consolidate.research', 
-                    compact('roles', 'departments', 'colleges', 'department_accomps', 'department' , 'department_names', 'college_names', 'sectors', 'departmentsResearch', 'departmentsExtension')
+                    compact('roles', 'departments', 'colleges', 'department_accomps', 'department' , 'department_names', 'college_names', 'sectors', 'departmentsResearch', 'departmentsExtension', 'quarter', 'year')
                 );
     }
 }

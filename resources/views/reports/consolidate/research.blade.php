@@ -5,11 +5,17 @@
 
     <div class="card mb-3">
         <div class="card-body">
-            <div class="row">
-                <div class="col-md-12">
+            <div class="row justify-content-between">
+                <div class="col-md-11">
                     <h5>{{ $department->name }} - Research Accomplishments</h5>
-                    <hr>
                 </div>
+                {{-- Generate Report Button --}}
+                <div class="col-md-1 ml-auto">
+                    <button id="generate" type="button" class="btn btn-primary btn-sm" data-target="#reportGenerate" data-toggle="modal">Generate Report</button>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
                 <div class="col-md-12">
                     <div class="table-responive">
                         <table class="table table-hover table-sm table-bordered" id="department_accomplishments_table">
@@ -269,6 +275,7 @@
         </div>
     </div>
 
+    @include('reports.generate.index', ['data' => $department, 'source_type' => 'research'])
 
     @push('scripts')
         <script type="text/javascript" src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
