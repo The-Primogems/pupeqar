@@ -46,7 +46,7 @@
                                     <td class="report-view button-view" data-toggle="modal" data-target="#viewReport" data-url="{{ route('document.view', ':filename') }}" data-id="{{ $row->id }}">{{ $department_names[$row->id]->name }}</td>
                                     <td class="report-view button-view" data-toggle="modal" data-target="#viewReport" data-url="{{ route('document.view', ':filename') }}" data-id="{{ $row->id }}">
                                         @if ($row->report_category_id >= 1 && $row->report_category_id <= 8)
-                                            @if ($row->researcher_approval == null)
+                                            @if ($row->researcher_approval === null)
                                                 Receiving...
                                             @elseif ($row->researcher_approval == 0)
                                                 <span class="text-danger font-weight-bold">Returned</span>
@@ -59,7 +59,7 @@
                                     </td>
                                     <td class="report-view button-view" data-toggle="modal" data-target="#viewReport" data-url="{{ route('document.view', ':filename') }}" data-id="{{ $row->id }}">
                                         @if ($row->report_category_id >= 9 && $row->report_category_id <= 14)
-                                            @if ($row->extensionist_approval == null)
+                                            @if ($row->extensionist_approval === null)
                                                 Receiving...
                                             @elseif ($row->extensionist_approval == 0)
                                                 <span class="text-danger font-weight-bold">Returned</span>
@@ -72,7 +72,7 @@
                                     </td>
                                     <td class="report-view button-view" data-toggle="modal" data-target="#viewReport" data-url="{{ route('document.view', ':filename') }}" data-id="{{ $row->id }}">
                                         @if ($row->report_category_id >= 1 && $row->report_category_id <= 8)
-                                            @if ($row->researcher_approval == null)
+                                            @if ($row->researcher_approval === null)
                                                 -
                                             @elseif ($row->researcher_approval == 0)
                                                 -
@@ -86,7 +86,7 @@
                                                 @endif
                                             @endif
                                         @elseif ($row->report_category_id >= 9 && $row->report_category_id <= 14)
-                                            @if ($row->extensionist_approval == null)
+                                            @if ($row->extensionist_approval === null)
                                                 -
                                             @elseif ($row->extensionist_approval == 0)
                                                 -

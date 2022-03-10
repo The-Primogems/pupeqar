@@ -156,9 +156,9 @@ class UtilizationController extends Controller
     public function edit(Research $research, ResearchUtilization $utilization)
     {
         $this->authorize('update', ResearchUtilization::class);
-        if(LockController::isLocked($research->id, 1)){
-            return redirect()->back()->with('cannot_access', 'Cannot be edited.');
-        }
+        // if(LockController::isLocked($research->id, 1)){
+        //     return redirect()->back()->with('cannot_access', 'Cannot be edited.');
+        // }
         if(LockController::isLocked($utilization->id, 6)){
             return redirect()->back()->with('cannot_access', 'Cannot be edited.');
         }

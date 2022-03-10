@@ -383,7 +383,7 @@ class ReportDataController extends Controller
     public function viewReportOrigin($report_id, $report_category_id){
         switch($report_category_id){
             case 1: 
-                $id = Report::where('id', $report_id)->pluck('report_reference_id')->all();
+                $id = Report::where('id', $report_id)->pluck('report_reference_id')->first();
                 return redirect()->route('research.edit', $id)->with('denied', DenyReason::where('report_id', $report_id)->first());
                 break;
             case 2:

@@ -46,11 +46,11 @@
                                     <td class="report-view button-view" data-toggle="modal" data-target="#viewReport" data-url="{{ route('document.view', ':filename') }}" data-id="{{ $row->id }}">{{ $department_names[$row->id]->name }}</td>
                                     <td class="report-view button-view" data-toggle="modal" data-target="#viewReport" data-url="{{ route('document.view', ':filename') }}" data-id="{{ $row->id }}">
                                         @if ($row->report_category_id >= 1 && $row->report_category_id <= 8)
-                                            @if ($row->researcher_approval == null)
+                                            @if ($row->researcher_approval === null)
                                                 Receiving...
-                                            @elseif ($row->researcher_approval == 0)
+                                            @elseif ($row->researcher_approval == "0")
                                                 <span class="text-danger font-weight-bold">Returned</span>
-                                            @elseif ($row->researcher_approval == 1)
+                                            @elseif ($row->researcher_approval == "1")
                                                 <span class="text-success font-weight-bold">Received</span>
                                             @endif
                                         @else
@@ -59,11 +59,11 @@
                                     </td>
                                     <td class="report-view button-view" data-toggle="modal" data-target="#viewReport" data-url="{{ route('document.view', ':filename') }}" data-id="{{ $row->id }}">
                                         @if ($row->report_category_id >= 9 && $row->report_category_id <= 14)
-                                            @if ($row->extensionist_approval == null)
+                                            @if ($row->extensionist_approval === null)
                                                 Receiving...
-                                            @elseif ($row->extensionist_approval == 0)
+                                            @elseif ($row->extensionist_approval == "0")
                                                 <span class="text-danger font-weight-bold">Returned</span>
-                                            @elseif ($row->extensionist_approval == 1)
+                                            @elseif ($row->extensionist_approval == "1")
                                                 <span class="text-success font-weight-bold">Received</span>
                                             @endif
                                         @else

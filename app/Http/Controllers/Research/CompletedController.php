@@ -183,9 +183,9 @@ class CompletedController extends Controller
     {   
         $this->authorize('update', ResearchComplete::class);
 
-        if(LockController::isLocked($research->id, 1)){
-            return redirect()->back()->with('cannot_access', 'Cannot be edited.');
-        }
+        // if(LockController::isLocked($research->id, 1)){
+        //     return redirect()->back()->with('cannot_access', 'Cannot be edited.');
+        // }
         if(LockController::isLocked($completed->id, 2)){
             return redirect()->back()->with('cannot_access', 'Cannot be edited.');
         }
