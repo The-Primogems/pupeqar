@@ -36,14 +36,13 @@
         <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
         <script>
             $(function() {
-                $('#funding_agency').attr("disabled", true);
-                $('#funding_agency').removeClass('form-validation');
                 $('#start_date').attr("disabled", true);
                 $('#end_date').attr("disabled", true);
                 $('#issue_date').attr("disabled", true);
                 $('#status').val(53); // Select Ongoing Status
-                $("#collaborator")[0].selectize.addOption({value:"{{ auth()->user()->last_name.' '.auth()->user()->first_name.' '.substr(auth()->user()->middle_name,0,1)."." }}", text:"{{ auth()->user()->last_name.' '.auth()->user()->first_name.' '.substr(auth()->user()->middle_name,0,1)."." }}"});
-                $("#collaborator")[0].selectize.addItem('{{ auth()->user()->last_name.' '.auth()->user()->first_name.' '.substr(auth()->user()->middle_name,0,1)."." }}');
+                var nameUser = "{{ auth()->user()->last_name.', '.auth()->user()->first_name.' '.(auth()->user()->middle_name != '' ? substr(auth()->user()->middle_name,0,1).'.' : '') }}";
+                $("#collaborator")[0].selectize.addOption({value:nameUser, text:nameUser});
+                $("#collaborator")[0].selectize.addItem(nameUser);
             });
         
             $('#status').on('change', function (){ 
@@ -80,13 +79,10 @@
                 }
                 else if(type == 50){
                     $('#funding_agency').val('');
-                    $('#funding_agency').attr('disabled', true);
-                    $('#funding_agency').removeClass('form-validation');
                 }
                 else if(type == 51){
-                    $('#funding_agency').removeAttr('disabled');
-                    $('#funding_agency').attr('required', true);
                     $('#funding_agency').val('');
+                    $('#funding_agency').attr('required', true);
                     $('#funding_agency').addClass('form-validation');
                 }
             });

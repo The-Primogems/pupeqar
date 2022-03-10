@@ -231,18 +231,16 @@
             $('#type_of_funding').on('change', function (){
                 var type = $(this).val();
                 if(type == 123){
-                    $('#funding_agency').attr('disabled', true);
                     $('#funding_agency').val('Polytechnic University of the Philippines');
                     $('#funding_agency').addClass('form-validation');
                 }
                 else if(type == 124){
-                    $('#funding_agency').attr('disabled', true);
+                    $('#funding_agency').val('');
                     $('#funding_agency').removeClass('form-validation');
                 }
                 else if(type == 125){
-                    $('#funding_agency').removeAttr('readonly');
-                    $('#funding_agency').removeAttr('disabled');
                     $('#funding_agency').val('');
+                    $('#funding_agency').attr('required', true);
                     $('#funding_agency').addClass('form-validation');
                 }
             });

@@ -172,12 +172,10 @@
                 }
                 else if(type == 50){
                     $('#funding_agency').val('');
-                    $('#funding_agency').attr('disabled', true);
-                    $('#funding_agency').removeClass('form-validation');
                 }
                 else if(type == 51){
-                    $('#funding_agency').removeAttr('disabled');
                     $('#funding_agency').val('');
+                    $('#funding_agency').attr('required', true);
                     $('#funding_agency').addClass('form-validation');
                 }
             });

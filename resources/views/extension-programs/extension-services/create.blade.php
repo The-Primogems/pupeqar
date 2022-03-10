@@ -40,8 +40,6 @@
         <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
         <script>
             $(function () {
-                $('#funding_agency').attr('disabled', true);
-                $('#funding_agency').removeClass('form-validation');
                 $('#from').attr('disabled', true);
                 $('#from').removeClass('form-validation');
                 $('#to').attr('disabled', true);
@@ -104,16 +102,13 @@
                 var type = $(this).val();
                 if(type == 123){
                     $('#funding_agency').val('Polytechnic University of the Philippines');
-                    $('#funding_agency').attr('disabled', true);
                     $('#funding_agency').addClass('form-validation');
                 }
                 else if(type == 124){
                     $('#funding_agency').val('');
-                    $('#funding_agency').attr('disabled', true);
                     $('#funding_agency').removeClass('form-validation');
                 }
                 else if(type == 125){
-                    $('#funding_agency').removeAttr('disabled');
                     $('#funding_agency').val('');
                     $('#funding_agency').attr('required', true);
                     $('#funding_agency').addClass('form-validation');

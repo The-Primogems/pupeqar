@@ -145,7 +145,7 @@
                 $('#title').attr('disabled', 'disabled'); 
                 $('#keywords').attr('disabled', 'disabled'); 
                 var researcher = $('#researchers').val();
-                $('#researchers').val(researcher+", "+"{{ auth()->user()->first_name.' '.auth()->user()->last_name }}");
+                $('#researchers').val(researcher+", "+"{{ auth()->user()->last_name.', '.auth()->user()->first_name }}.' '.(auth()->user()->middle_name != '' ? substr(auth()->user()->middle_name,0,1).'.' : '')");
                 $('#researchers').attr('disabled', true);
                 $('#currency_select_funding_amount').empty().append('<option selected="selected" value="{{ $research->currency_funding_amount }}">{{ $research->currency_funding_amount}}</option>');
                 $('#currency_select_funding_amount').attr('disabled', true);

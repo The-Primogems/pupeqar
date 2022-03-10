@@ -41,15 +41,13 @@
             $(function () {
                 $('#start_date').attr('disabled', true);
                 $('#target_date').attr('disabled', true);
-                $('#funding_agency').attr('disabled', true);
-                $('#funding_agency').removeClass('form-validation');
                 if ("{{ auth()->user()->middle_name }}" == '')
                 {
-                    $('#researchers').val("{{ auth()->user()->last_name.' '.auth()->user()->first_name.' '.substr(auth()->user()->middle_name,0,1).'.' }}");
+                    $('#researchers').val("{{ auth()->user()->last_name.', '.auth()->user()->first_name.' '.(auth()->user()->middle_name != '' ? substr(auth()->user()->middle_name,0,1).'.' : '') }}");
                 }
                 else
                 {
-                    $('#researchers').val("{{ auth()->user()->last_name.' '.auth()->user()->first_name.' '.substr(auth()->user()->middle_name,0,1).'.' }}");
+                    $('#researchers').val("{{ auth()->user()->last_name.', '.auth()->user()->first_name.' '.(auth()->user()->middle_name != '' ? substr(auth()->user()->middle_name,0,1).'.' : '')  }}");
                 }
                 $('#researchers').attr('readonly', true);
             });

@@ -168,8 +168,6 @@
                 if ({{ $research->funding_type }} == 24) {
                     $('#funding_agency').val('');
                     $('#funding_agency').removeAttr('required');
-                    $('#funding_agency').attr('disabled', true);
-                    $('#funding_agency').removeClass('form-validation');
                 }
                 var collegeId = $('#college').val();
                 $('#department').empty().append('<option selected="selected" disabled="disabled" value="">Choose...</option>');
